@@ -20,23 +20,21 @@ exports.checkAdminMiddleware = async (req, res, next) => {
     }
 };
 
-exports.authenticateToken = async(req, res, next) => {  
+exports.authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.replace("Bearer ", "");
+  if (!token || token === "null") {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
   try {
-
-    const authHeader = req.headers["authorization"]; 
-    const token = authHeader.replace("Bearer ", "")
-
-    if (token == null || token === 'null') {
-      return res.sendStatus(401);
-    }
-    
     const user = jwt.verify(token, process.env.TOKEN_SECRET);
     req.user = user;
-    return next();
-  } catch (error) {
-    return res.sendStatus(403).json({ message: error.message });
+    next();
+  } catch (err) {
+    return res.status(403).json({ error: "Invalid token" });
   }
-}
+};
+
 
 exports.authorizeUserOrAdmin = async (req, res, next) => {
   try {
