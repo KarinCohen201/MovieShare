@@ -125,9 +125,9 @@
                 alert('Username must be 50 characters or fewer.');
                 return;
             }
-      
+
             if (!/^[a-zA-Z\s]+$/.test(username)) {
-                alert('Username can contain only letters and spaces (A–Z).');
+                alert('Username can contain only letters and spaces (A-Z).');
                 return;
             }
 
@@ -150,16 +150,18 @@
             fetch('/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, email, password, confirmPassword }),
+                body: JSON.stringify({ username, email, password }),
             })
                 .then(async (response) => {
-                    const result = await response.json();
+                    const result = await response.json().catch(() => ({}));
                     if (!response.ok) {
-                        alert(result.message); 
-                    } else {
-                        alert('Registration successful! Redirecting to login page...');
-                        window.location.href = '/login'; // Redirect to login page
+
+                        const msg = result.error || result.message || (response.status === 409 ? "Username or email already exists" : "Registration failed");
+                        alert(msg);
+                        return;
                     }
+                    alert('Registration successful! Redirecting to login page...');
+                    window.location.href = '/login';
                 })
                 .catch(error => {
                     console.error('Error:', error);

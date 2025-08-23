@@ -53,13 +53,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     if (logoutButton) {
-        logoutButton.addEventListener("click", async () => {
-            await fetch("/logout", { method: "POST" });
-            sessionStorage.removeItem("userEmail");
-            sessionStorage.removeItem("username");
-            window.location.href = "/login";
+        logoutButton.addEventListener("click", async (e) => {
+          e.preventDefault();
+          try { await fetch("/logout", { method: "POST" }); } catch (_) {}
+          sessionStorage.clear();            
+          window.location.href = "/login";
         });
-    }
+      }
 
 
     if (favoritesButton) {

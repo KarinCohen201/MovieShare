@@ -5,7 +5,7 @@ const { generateAccessToken } = require('../services/users')
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log("Login attempt:", email, password);
+       // console.log("Login attempt:", email, password);
 
         const user = await User.findOne({ email });
         if (!user) {
@@ -13,11 +13,11 @@ const login = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        console.log("User found:", user);
+       // console.log("User found:", user);
 
-        console.log("Comparing:", password, "VS", user.password);
+       // console.log("Comparing:", password, "VS", user.password);
         const isMatch = await bcrypt.compare(password, user.password);
-        console.log("Password match:", isMatch);
+      //  console.log("Password match:", isMatch);
 
         if (!isMatch) {
             return res.status(400).json({ message: "Invalid credentials" });
@@ -42,21 +42,44 @@ const logout = (req, res) => {
 
 const register = async (req, res) => {
     try {
-        console.log("Received register request:", req.body);
+      const { username, email, password } = req.body;
+  
+      // ולידציה בסיסית
+      if (!username || !email || !password) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
+  
+      // בדיקה מוקדמת לדופליקטים (username או email)
+      const existing = await User.findOne({ $or: [{ username }, { email }] }).lean();
+      if (existing) {
+        const field = existing.username === username ? "username" : "email";
+        return res.status(409).json({ error: `${field} already exists` });
+      }
+  
 
-        const { username, email, password } = req.body;
-        if (await User.findOne({ email })) return res.status(400).json({ message: "User already exists" });
-
-        const newUser = new User({ username, email, password });
-        await newUser.save();
-
-        console.log("User saved to MongoDB:", newUser);
-        res.status(201).json({ message: "User registered successfully" });
+      const newUser = new User({ username, email, password });
+      await newUser.save();
+  
+      return res.status(201).json({ message: "User registered successfully" });
     } catch (error) {
-        console.error("Error in /register:", error);
-        res.status(500).json({ message: "Server error" });
+
+      if (error && error.code === 11000) {
+        const field =
+          (error.keyPattern && Object.keys(error.keyPattern)[0]) ||
+          (error.keyValue && Object.keys(error.keyValue)[0]) ||
+          "field";
+        return res.status(409).json({ error: `${field} already exists` });
+      }
+  
+      if (error && error.name === "ValidationError") {
+        const msg = Object.values(error.errors).map(e => e.message).join(", ");
+        return res.status(400).json({ error: msg });
+      }
+  
+      console.error("Error in /register:", error);
+      return res.status(500).json({ error: "Internal server error" });
     }
-}
+  };
 
 const getUser = async (req, res) => {
     const { email } = req.query;
