@@ -1,0 +1,127 @@
+      .movie-container {
+        max-width: fit-content;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .movie-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .movie-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .watch-link {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .pagination {
+        display: flex;
+        gap: 10px;
+      }
+      .pagination button {
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+      .pagination img {
+        width: 24px;
+        height: 24px;
+        opacity: 0.7;
+      }
+      .pagination button:disabled img {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+      .reviews-list {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+      }
+      .review-box {
+        background: white;
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 0.9em;
+      }
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .review-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+      }
+      .review-header .user-info,
+      .review-header .review-date {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .review-header img {
+        width: 16px;
+        height: 16px;
+      }
+      .review-text {
+        background: #f0f8ff;
+        padding: 10px;
+        border-radius: 12px;
+        font-size: 0.9em;
+        width: 200px;
+        height: 50px;
+        margin-top: 10px;
+        border: 1px solid #cce7ff;
+      }
+      .add-review-container {
+        flex: 1;
+        padding: 10px;
+        background: #e9f5ff;
+        border-radius: 8px;
+        display: flex;
+        width: 100px;
+        flex-direction: column;
+        gap: 5px;
+        height: 100%;
+      }
+      .movie-info {
+        width: 200px;
+        flex: 1;
+        padding: 10px;
+        background: #e9f5ff;
+        border-radius: 8px;
+        display: flex;
+        width: 100px;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .add-review-container input,
+      .add-review-container textarea {
+
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .add-review-container button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
