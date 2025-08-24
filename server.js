@@ -3,17 +3,12 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
-//const Favorite = require('./models/Favorite');
 
 const adminRoutes = require("./routes/admin"); 
-
-//import all user routes
 const authRouter = require('./routes/authentication')
-//import all favorite routes
 const favoritesRouter = require('./routes/favorites')
 const reviewRouter = require('./routes/reviews')
 const linksRouter = require("./routes/links");
-const statsRouter = require("./routes/statistics")
 
 const app = express();
 
@@ -64,10 +59,6 @@ app.get("/index", (req, res) => {
     res.sendFile(path.join(__dirname, "Client", "index.html"));
 });
 
-app.get("/statistics", (req, res) => {
-    res.sendFile(path.join(__dirname, "Client", "statistics.html"));
-});
-
 app.get("/admin", (req, res) => {
     res.sendFile(path.join(__dirname, "Client", "admin.html")); 
 });
@@ -91,8 +82,6 @@ app.use("/reviews", reviewRouter);
 
 app.use(express.json());
 app.use("/admin", adminRoutes);
-app.use(statsRouter)
-
 
 // Check User Session
 app.get("/me", (req, res) => {

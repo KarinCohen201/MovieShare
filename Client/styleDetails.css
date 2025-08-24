@@ -191,12 +191,6 @@ table tbody tr:hover {
     background-color: #97783f;
 }
 
-
-#statistics a{
-    color: white !important;
-}
-
-
 #link-container {
     background-color: #aaaaaa;
     display: flex;

@@ -13,11 +13,14 @@ const totalLinks = async (limit) => {
 
 const mostLinkedMovie = async () => {
   try {
-    return Link.aggregate([
-      { $group: { _id: "$imdbID", totalLinks: { $sum: 1 } } }, // Group by movie title & count links
-      { $sort: { totalLinks: -1 } }, // Sort in descending order
-      { $limit: 1 }, // Get the top result
+    const result = await Link.aggregate([
+      { $group: { _id: "$imdbID", count: { $sum: 1 } } },
+
+      // starting from the most popular
+      { $sort: { count: -1 } },
+      { $limit: 1 }
     ]);
+    return result;
   } catch (error) {
     console.log(error);
     return false;

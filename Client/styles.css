@@ -2,8 +2,8 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background: #181818; /* רקע כהה יותר אך עדיין עדין */
-    color: #d0d0d0; /* צבע טקסט בהיר אך לא מסנוור */
+    background: #181818;
+    color: #d0d0d0;
     line-height: 1.6;
 }
 
@@ -19,7 +19,7 @@ h1 {
     max-width: 1400px;
     margin: 30px auto;
     padding: 20px;
-    background: #222222; /* רקע כהה עדין ומאוזן */
+    background: #222222;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     border: 1px solid #333;
@@ -69,37 +69,19 @@ button {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
-#all-favorites {
-    display: inline-block; 
+#all-favorites,
+#top-links {
+    display: inline-block;
     background-color: rgb(176, 134, 27);
     color: white;
     padding: 12px 20px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    align-items: center;
+    align-items: center !important;
     transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-#top-links , #statistics{
-    display: inline-block; 
-    background-color: rgb(176, 134, 27);
-    color: white;
-    padding: 12px 20px;
-    margin-left: 15px;
-    margin-bottom: 30px;
-    border-radius: 5px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    align-items: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-
-#top-links:hover, #all-favorites, #statistics:hover {
-    background-color: #a98803;
 }
 
 #admin-panel-button {
@@ -114,16 +96,16 @@ button {
 }
 
 #logout-button {
-    position: absolute; 
-    top: 10px;        
-    right: 10px;       
-    padding: 10px 20px; 
-    font-size: 16px;    
-    cursor: pointer;    
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
     background-color: #8c1d1a;
     color: white;
-    border:none;
-    margin-right: 30px;;
+    border: none;
+    margin-right: 30px;
 }
 
 #logout-button:hover {
@@ -141,29 +123,25 @@ button {
     border-radius: 5px;
 }
 
-#favorites-container{
-    background: #222222; 
+#favorites-container {
+    background: #222222;
     color: #ffffff;
     border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#sort-options{
+#sort-options {
     background: #333;
     color: #d0d0d0;
     border: 1px solid #555;
 }
 
-.btn-primary{
+.btn-primary {
     background-color: #566e98;
     border: none;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
     background-color: #3d476b;
     border: none;
-}
-
-#statistics a{
-    color: white !important;
 }

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-  
+
     const usernameDisplay = document.getElementById("username-display");
     const logoutButton = document.getElementById("logout-button");
     const searchInput = document.getElementById("search-movie");
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     } catch (error) {
         return;
-    
+
     }
 
 
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (query.length > 3) {
                 performSearch(query, containerMoviesDiv);
             } else {
-                containerMoviesDiv.innerHTML = ""; 
+                containerMoviesDiv.innerHTML = "";
             }
         });
     }
@@ -54,17 +54,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (logoutButton) {
         logoutButton.addEventListener("click", async (e) => {
-          e.preventDefault();
-          try { await fetch("/logout", { method: "POST" }); } catch (_) {}
-          sessionStorage.clear();            
-          window.location.href = "/login";
+            e.preventDefault();
+            try { await fetch("/logout", { method: "POST" }); } catch (_) { }
+            sessionStorage.clear();
+            window.location.href = "/login";
         });
-      }
+    }
 
 
     if (favoritesButton) {
         favoritesButton.addEventListener("click", () => {
-            window.location.href ="/favoritesMovies";
+            window.location.href = "/favoritesMovies";
         });
     }
 
@@ -79,9 +79,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function checkIfAdmin(email) {
     try {
         const response = await fetch("/admin/check-admin", {
-            method: "POST",  
+            method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email })  
+            body: JSON.stringify({ email })
         });
 
         if (!response.ok) {
@@ -89,32 +89,32 @@ async function checkIfAdmin(email) {
         }
 
         const data = await response.json();
-        return data.isAdmin; 
+        return data.isAdmin;
     } catch (error) {
         return false;
     }
 }
 
-function handleUnauthorizedRequest(status){
-      if (status == 401 || status == 403) {
+function handleUnauthorizedRequest(status) {
+    if (status == 401 || status == 403) {
         sessionStorage.clear();
         window.location.href = "/login";
         return;
-      }
+    }
 }
 
 
-function getMovieIdFromAddress(){
-  const urlParams = new URLSearchParams(window.location.search);
-  const imdbID = urlParams.get("imdbid");
+function getMovieIdFromAddress() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const imdbID = urlParams.get("imdbid");
 
-  return imdbID;
+    return imdbID;
 }
 
 function performSearch(query, container) {
     console.log("Performing search for query:", query);
     sessionStorage.setItem("searchQuery", query);
-    container.innerHTML = ""; 
+    container.innerHTML = "";
 
     MovieAPI.fetchMovies(query)
         .then(movies => MovieAPI.RenderMoviesCard(movies, container))
