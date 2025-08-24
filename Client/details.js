@@ -72,7 +72,6 @@ function openRatingModal(linkId) {
         })
         .catch((error) => {
           Swal.fire("Error", "Something went wrong!", "error");
-          //console.error("Error:", error);
           return;
         });
     },
