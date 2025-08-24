@@ -61,7 +61,7 @@ exports.authorizeUserOrAdmin = async (req, res, next) => {
       return res.status(400).json({ error: "Missing link ID" });
     }
 
-    console.log("Link:", Link);
+  
     const link = await Link.findById(linkId);
     if (!link) {
       return res.status(404).json({ error: "Link not found" });
