@@ -18,7 +18,6 @@ const addReview = async (req, res) => {
       return res.status(404).json({ error: "Link not found" });
     }
 
-    // אסור להגיב על לינק של עצמי
     if (String(link.email).toLowerCase() === String(reviewerEmail).toLowerCase()) {
       return res.status(403).json({ error: "You cannot review your own link." });
     }
