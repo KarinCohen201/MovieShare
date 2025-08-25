@@ -5,19 +5,13 @@ const { generateAccessToken } = require('../services/users')
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-       // console.log("Login attempt:", email, password);
 
         const user = await User.findOne({ email });
         if (!user) {
             console.log("User not found");
             return res.status(400).json({ message: "Invalid credentials" });
         }
-
-       // console.log("User found:", user);
-
-       // console.log("Comparing:", password, "VS", user.password);
         const isMatch = await bcrypt.compare(password, user.password);
-      //  console.log("Password match:", isMatch);
 
         if (!isMatch) {
             return res.status(400).json({ message: "Invalid credentials" });
@@ -44,12 +38,10 @@ const register = async (req, res) => {
     try {
       const { username, email, password } = req.body;
   
-      // ולידציה בסיסית
       if (!username || !email || !password) {
         return res.status(400).json({ error: "Missing required fields" });
       }
-  
-      // בדיקה מוקדמת לדופליקטים (username או email)
+
       const existing = await User.findOne({ $or: [{ username }, { email }] }).lean();
       if (existing) {
         const field = existing.username === username ? "username" : "email";
